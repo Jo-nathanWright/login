@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Threading;
 using login.Models;
+using System.Collections.Generic;
 
 namespace login
 {
@@ -8,42 +8,34 @@ namespace login
     {
         static void Main(string[] args)
         {
-      Accounts info = new Accounts();
-      info.AddAcount(new Info("NinjaPie", "12345"));
-      info.AddAcount(new Info("Username", "Password"));
-      info.AddAcount(new Info("Test", "123"));
-      info.AddAcount(new Info("Secure", "h89eth4ysl09"));
-      info.AddAcount(new Info("Bad", "Bad"));
-      bool placingUser = true;
-      bool placingPass = true;
+
+      //Setting Up the Console and the Accounts
       Console.BackgroundColor = ConsoleColor.White;
       Console.ForegroundColor = ConsoleColor.Black;
       Console.Clear();
-      while(placingUser){
+      bool placingUser = true;
+      Dictionary<String, Info> users = new Dictionary<string, Info>();
+      Info jake = new Info("Jake", "IheartCode");
+      Info jonathan = new Info("JoNathan", "12345");
+      Info mark = new Info("Mark", "Password");
+      users.Add(jake.Username, jake);
+      users.Add(jonathan.Username, jonathan);
+      users.Add(mark.Username, mark);
+
+      //What you are Shown
         Console.WriteLine("Welcome To Foodie Chews, Login to Continue!");
+        Console.WriteLine("\n");
+        while(placingUser){
         Console.Write("Username: ");
-        string user = Console.ReadLine();
-        Info username = info.Info.Find(u => u.Username == user);
-        if(username == null){
-          Console.Beep();
-          Console.WriteLine("Please provide A vaild User");
-        } else {
+        string name = Console.ReadLine();
+        Console.Write("Password: ");
+        string password = Console.ReadLine();
+        if(users.ContainsKey(name) && users[name].ValidPassword(password)){
           placingUser = false;
-          while(placingPass){
-            Console.Clear();
-            Console.WriteLine("Password Required!");
-            Console.Write("Password: ");
-            string pass = Console.ReadLine();
-            Info password = info.Info.Find(p => p.Password == pass);
-            if(password == null){
-              Console.Beep();
-              Console.WriteLine("Invalid Password!");
-              Thread.Sleep(1000);
-            } else {
-              placingPass = false;
-              Console.WriteLine("Welcome Back " + user + "!");
-            }
-          }
+          Console.WriteLine("Welcome Back " + name + "!");
+        } else {
+          Console.Beep();
+          Console.WriteLine("Invalid Username or Password, try again");
         }
       }
     }

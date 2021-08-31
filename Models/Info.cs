@@ -4,12 +4,17 @@ namespace login.Models
     {
     public string Username { get; set; }
 
-    public string Password { get; set; }
+    private string Password { get; set; }
 
-    public Info(string u, string p)
+    public bool ValidPassword(string input)
     {
-      Username = u;
-      Password = p;
+      return input == Password;
+    }
+
+    public Info(string name, string pass)
+    {
+      Username = name;
+      Password = pass;
     }
   }
 }
