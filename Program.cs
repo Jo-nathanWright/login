@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using login.Models;
 
 namespace login
@@ -29,12 +30,15 @@ namespace login
         } else {
           placingUser = false;
           while(placingPass){
+            Console.Clear();
             Console.WriteLine("Password Required!");
             Console.Write("Password: ");
             string pass = Console.ReadLine();
             Info password = info.Info.Find(p => p.Password == pass);
             if(password == null){
+              Console.Beep();
               Console.WriteLine("Invalid Password!");
+              Thread.Sleep(1000);
             } else {
               placingPass = false;
               Console.WriteLine("Welcome Back " + user + "!");
