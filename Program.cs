@@ -14,6 +14,7 @@ namespace login
       Console.ForegroundColor = ConsoleColor.Black;
       Console.Clear();
       bool placingUser = true;
+      int tries = 6;
       Dictionary<String, Info> users = new Dictionary<string, Info>();
       Info jake = new Info("Jake", "IheartCode");
       Info jonathan = new Info("JoNathan", "12345");
@@ -23,9 +24,10 @@ namespace login
       users.Add(mark.Username, mark);
 
       //What you are Shown
-        Console.WriteLine("Welcome To Foodie Chews, Login to Continue!");
+      Console.WriteLine("Welcome To Foodie Chews, Login to Continue!");
         Console.WriteLine("\n");
         while(placingUser){
+        tries--;
         Console.Write("Username: ");
         string name = Console.ReadLine();
         Console.Write("Password: ");
@@ -34,8 +36,14 @@ namespace login
           placingUser = false;
           Console.WriteLine("Welcome Back " + name + "!");
         } else {
-          Console.Beep();
-          Console.WriteLine("Invalid Username or Password, try again");
+          if(tries == 0){
+            placingUser = false;
+            Console.WriteLine("Out of Attemps. Try Again Later!");
+          } else {
+            Console.Beep();
+            Console.WriteLine("Invalid Username or Password, try again");
+            Console.WriteLine(tries + " Attemps left.");
+          }
         }
       }
     }
