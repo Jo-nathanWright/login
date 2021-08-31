@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using login.Models;
 using System.Collections.Generic;
 
@@ -24,9 +25,9 @@ namespace login
       users.Add(mark.Username, mark);
 
       //What you are Shown
-      Console.WriteLine("Welcome To Foodie Chews, Login to Continue!");
-        Console.WriteLine("\n");
         while(placingUser){
+        Console.WriteLine("Welcome To Foodie Chews, Login to Continue!");
+        Console.WriteLine("\n");
         tries--;
         Console.Write("Username: ");
         string name = Console.ReadLine();
@@ -38,11 +39,17 @@ namespace login
         } else {
           if(tries == 0){
             placingUser = false;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Out of Attemps. Try Again Later!");
+            Console.ForegroundColor = ConsoleColor.Black;
           } else {
             Console.Beep();
             Console.WriteLine("Invalid Username or Password, try again");
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(tries + " Attemps left.");
+            Console.ForegroundColor = ConsoleColor.Black;
+            Thread.Sleep(2500);
+            Console.Clear();
           }
         }
       }
